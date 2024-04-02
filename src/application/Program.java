@@ -33,9 +33,9 @@ public class Program {
 		rentalService.processInvoice(carRental);
 		
 		System.out.println("FATURA");
-		System.out.println("Pagamento básico: " + carRental.getInvoice().getBasicPayment());
-		System.out.println("Imposto: " + carRental.getInvoice().getTax());
-		System.out.println("Pagamento total: " + carRental.getInvoice().getTotalPayment());
+		System.out.println("Pagamento básico: " + String.format("%.2f", carRental.getInvoice().getBasicPayment()));
+		System.out.println("Imposto: " + String.format("%.2f", carRental.getInvoice().getTax()));
+		System.out.println("Pagamento total: " + String.format("%.2f", carRental.getInvoice().getTotalPayment()));
 	
 		sc.close();
 		
