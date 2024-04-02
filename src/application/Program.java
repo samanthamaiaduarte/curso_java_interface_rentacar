@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import model.entities.CarRental;
 import model.entities.Vehicle;
+import model.services.RentalService;
 
 public class Program {
 
@@ -18,9 +19,9 @@ public class Program {
 		System.out.println("Entre com os dados do aluguel");
 		System.out.print("Modelo do carro: ");
 		String carModel = sc.nextLine();
-		System.out.print("Retirada (DD/MM/YYYY HH:MM: ");
+		System.out.print("Retirada (DD/MM/YYYY HH:MM): ");
 		LocalDateTime start = LocalDateTime.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-		System.out.print("Devolução (DD/MM/YYYY HH:MM: ");
+		System.out.print("Devolução (DD/MM/YYYY HH:MM): ");
 		LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 		System.out.print("Entre com o preço por hora: ");
 		double pricePerHour = sc.nextDouble();
@@ -28,7 +29,14 @@ public class Program {
 		double pricePerDay = sc.nextDouble();
 		
 		CarRental carRental = new CarRental(start, finish, new Vehicle(carModel));
+		RentalService rentalService = new RentalService(pricePerHour, pricePerDay);
+		rentalService.processInvoice(carRental);
 		
+		System.out.println("FATURA");
+		System.out.println("Pagamento básico: " + carRental.getInvoice().getBasicPayment());
+		System.out.println("Imposto: " + carRental.getInvoice().getTax());
+		System.out.println("Pagamento total: " + carRental.getInvoice().getTotalPayment());
+	
 		sc.close();
 		
 	}
